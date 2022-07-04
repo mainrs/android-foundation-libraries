@@ -12,6 +12,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/android-foundation" />
+            <option value="$PROJECT_DIR$/androidx-compose-e2e" />
             <option value="$PROJECT_DIR$/androidx-lifecycle" />
             <option value="$PROJECT_DIR$/androidx-room" />
           </set>

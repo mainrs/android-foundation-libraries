@@ -21,5 +21,6 @@ dependencyResolutionManagement {
 rootProject.name = "foundations"
 
 include(":android-foundation")
+include(":androidx-compose-e2e")
 include(":androidx-lifecycle")
 include(":androidx-room")
