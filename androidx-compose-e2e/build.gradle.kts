@@ -19,17 +19,27 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    buildFeatures {
+        compose = true
+    }
     buildTypes {
        release {
            isMinifyEnabled = false
            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
        }
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.2.0-rc02"
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     api("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
-    compileOnly("androidx.compose.foundation:foundation:1.2.0-rc02")
+    implementation("androidx.compose.foundation:foundation:1.2.0-rc02")
 }
 
 afterEvaluate {
