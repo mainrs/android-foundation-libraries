@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("maven-publish")
 }
 
 group = "com.github.mainrs"
@@ -29,4 +30,20 @@ android {
 dependencies {
     api("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
     compileOnly("androidx.compose.foundation:foundation:1.2.0-rc02")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            register<MavenPublication>("release") {
+                groupId = "com.github.mainrs"
+                artifactId = "compose-e2e"
+                version = "1.0.0"
+
+                afterEvaluate {
+                    from(components["release"])
+                }
+            }
+        }
+    }
 }
