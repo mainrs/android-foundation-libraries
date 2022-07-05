@@ -7,20 +7,20 @@ import net.zerotask.libraries.android.foundation.room.entity.BaseEntity
 
 interface MutableBaseDao<T : BaseEntity> {
     @Delete
-    fun delete(obj: T)
+    suspend fun delete(obj: T)
 
     @Delete
-    fun deleteAll(objects: List<T>)
+    suspend fun deleteAll(objects: List<T>)
 
     @Insert
-    fun insert(obj: T): Long
+    suspend fun insert(obj: T): Long
 
     @Insert
-    fun insertAll(objects: List<T>)
+    suspend fun insertAll(objects: List<T>)
 
     @Update
-    fun update(obj: T)
+    suspend fun update(obj: T)
 
     @Update
-    fun updateAll(objects: List<T>)
+    suspend fun updateAll(objects: List<T>)
 }

@@ -4,7 +4,7 @@ import net.zerotask.libraries.android.foundation.room.entity.BaseEntityWithTimes
 import java.time.OffsetDateTime
 
 interface MutableBaseDaoWithTimestamp<T : BaseEntityWithTimestamp> : MutableBaseDao<T> {
-    fun updateAndUpdateTimestamps(obj: T) {
+    suspend fun updateAndUpdateTimestamps(obj: T) {
         update(obj.apply {
             updatedAt = OffsetDateTime.now()
         })
