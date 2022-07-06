@@ -23,7 +23,7 @@ abstract class MviViewModel<ACTION, STATE, EFFECT>(
     val effect: Flow<EFFECT> = _effect.receiveAsFlow()
 
     private val _state: MutableStateFlow<STATE> = MutableStateFlow(initialState)
-    private val state: StateFlow<STATE> = _state.asStateFlow()
+    val state: StateFlow<STATE> = _state.asStateFlow()
 
     protected abstract fun onAction(action: ACTION)
 
