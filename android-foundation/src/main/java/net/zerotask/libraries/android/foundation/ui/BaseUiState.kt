@@ -4,7 +4,7 @@ package net.zerotask.libraries.android.foundation.ui
     message = "The interface has been renamed to UiState",
     replaceWith = ReplaceWith(
         expression = "UiState<T>",
-        imports = ["net.zerotask.libraries.android.foundation.ui"],
+        imports = ["net.zerotask.libraries.android.foundation.ui.UiState"],
     ),
     level = DeprecationLevel.WARNING,
 )
