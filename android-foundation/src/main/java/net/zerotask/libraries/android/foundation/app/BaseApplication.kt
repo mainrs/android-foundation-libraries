@@ -4,17 +4,13 @@ import android.app.Activity
 import android.app.Application
 import android.os.Bundle
 import androidx.annotation.CallSuper
-import net.zerotask.libraries.android.foundation.app.initializers.TimberInitializer
 import timber.log.Timber
 
 abstract class BaseApplication : Application() {
-    protected open val initializers: List<Initializer> = listOf(TimberInitializer)
-
     @CallSuper
     override fun onCreate() {
         super.onCreate()
 
-        initializers.forEach(Initializer::initialize)
         registerActivityLifecycleCallbacks(LifecycleCallbackLogger())
     }
 }

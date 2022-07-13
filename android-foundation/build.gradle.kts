@@ -35,6 +35,8 @@ android {
 }
 
 dependencies {
+    api("androidx.paging:paging-runtime-ktx:3.1.1")
+    api("androidx.startup:startup-runtime:1.1.1")
     api("com.jakewharton.timber:timber:5.0.1")
     implementation("androidx.core:core-ktx:1.8.0")
 }
