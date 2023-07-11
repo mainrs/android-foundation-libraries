@@ -1,10 +1,12 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    with(Deps.Plugins) {
+        id(androidLibrary)
+        id(kotlinAndroid)
+        id(mavenPublish)
+    }
 }
 
-group = "com.github.mainrs"
+group = Publishing.group
 version = "1.0.0"
 
 android {
@@ -35,14 +37,14 @@ android {
 }
 
 dependencies {
-    api("androidx.datastore:datastore:1.0.0")
+    implementation(Deps.Androidx.datastore)
 }
 
 afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "com.github.mainrs"
+                groupId = Publishing.group
                 artifactId = "datastore"
                 version = "1.0.0"
 

@@ -1,10 +1,12 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    with(Deps.Plugins) {
+        id(androidLibrary)
+        id(kotlinAndroid)
+        id(mavenPublish)
+    }
 }
 
-group = "com.github.mainrs"
+group = Publishing.group
 version = "1.0.0"
 
 android {
@@ -29,7 +31,7 @@ android {
        }
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-rc02"
+        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,15 +40,19 @@ android {
 }
 
 dependencies {
-    api("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
-    implementation("androidx.compose.foundation:foundation:1.2.0-rc02")
+    implementation(Deps.Accompanist.systemUi)
+
+    with(Deps.Compose) {
+        implementation(platform(bom))
+        implementation(foundation)
+    }
 }
 
 afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "com.github.mainrs"
+                groupId = Publishing.group
                 artifactId = "compose-e2e"
                 version = "1.0.0"
 

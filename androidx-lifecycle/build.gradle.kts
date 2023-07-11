@@ -1,10 +1,12 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    with(Deps.Plugins) {
+        id(androidLibrary)
+        id(kotlinAndroid)
+        id(mavenPublish)
+    }
 }
 
-group = "com.github.mainrs"
+group = Publishing.group
 version = "1.0.0"
 
 android {
@@ -32,15 +34,17 @@ android {
 }
 
 dependencies {
-    compileOnly("com.jakewharton.timber:timber:5.0.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.0")
+    with(Deps) {
+        implementation(timber)
+        implementation(Deps.Androidx.lifecycle)
+    }
 }
 
 afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "com.github.mainrs"
+                groupId = Publishing.group
                 artifactId = "lifecycle"
                 version = "1.0.0"
 

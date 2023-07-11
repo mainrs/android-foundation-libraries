@@ -1,10 +1,12 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    with(Deps.Plugins) {
+        id(androidLibrary)
+        id(kotlinAndroid)
+        id(mavenPublish)
+    }
 }
 
-group = "com.github.mainrs"
+group = Publishing.group
 version = "1.0.0"
 
 android {
@@ -36,20 +38,21 @@ android {
         }
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.2.0-rc02"
+        kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
     }
 }
 
 dependencies {
-    api(project(":androidx-datastore"))
-    implementation("androidx.compose.runtime:runtime:1.2.0-rc02")
+    implementation(project(":androidx-datastore"))
+    implementation(platform(Deps.Compose.bom))
+    implementation(Deps.Compose.runtime)
 }
 
 afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "com.github.mainrs"
+                groupId =  Publishing.group
                 artifactId = "compose-datastore"
                 version = "1.0.0"
 

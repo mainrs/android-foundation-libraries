@@ -1,10 +1,12 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("maven-publish")
+    with(Deps.Plugins) {
+        id(androidLibrary)
+        id(kotlinAndroid)
+        id(mavenPublish)
+    }
 }
 
-group = "com.github.mainrs"
+group = Publishing.group
 version = "1.0.0"
 
 android {
@@ -35,17 +37,20 @@ android {
 }
 
 dependencies {
-    api("androidx.paging:paging-runtime-ktx:3.1.1")
-    api("androidx.startup:startup-runtime:1.1.1")
-    api("com.jakewharton.timber:timber:5.0.1")
-    implementation("androidx.core:core-ktx:1.8.0")
+    with(Deps.Androidx) {
+        implementation(paging)
+        implementation(startup)
+        implementation(core)
+    }
+
+    implementation(Deps.timber)
 }
 
 afterEvaluate {
     publishing {
         publications {
             register<MavenPublication>("release") {
-                groupId = "com.github.mainrs"
+                groupId = Publishing.group
                 artifactId = "foundation"
                 version = "1.0.0"
 
