@@ -38,7 +38,7 @@ android {
 }
 
 dependencies {
-    api("com.google.accompanist:accompanist-systemuicontroller:0.24.13-rc")
+    api("com.google.accompanist:accompanist-systemuicontroller:0.31.5-beta")
     implementation("androidx.compose.foundation:foundation:1.2.0-rc02")
 }
 
