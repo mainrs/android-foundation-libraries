@@ -3,7 +3,12 @@ package net.zerotask.libraries.android.foundation.lifecycle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -12,20 +17,20 @@ import kotlinx.coroutines.launch
  * @param ACTION The set of actions that can be send from the UI layer to the [ViewModel].
  * @param STATE The state that the UI layer represents.
  * @param EFFECT The side-effects that the [ViewModel] can trigger.
- * @param initialState The initial state of the [ViewModel].
  */
-abstract class MviViewModel<ACTION, STATE, EFFECT>(
-    initialState: STATE,
-) : LoggingViewModel() {
+abstract class MviViewModel<ACTION, STATE, EFFECT> : LoggingViewModel() {
+    private val initialState: STATE by lazy { createInitialState() }
+
     private val _action: MutableSharedFlow<ACTION> = MutableSharedFlow()
 
-    private val _effect: Channel<EFFECT> = Channel(Channel.BUFFERED)
+    private val _effect: Channel<EFFECT> = Channel()
     val effect: Flow<EFFECT> = _effect.receiveAsFlow()
 
     private val _state: MutableStateFlow<STATE> = MutableStateFlow(initialState)
     val state: StateFlow<STATE> = _state.asStateFlow()
 
     protected abstract fun onAction(action: ACTION)
+    protected abstract fun createInitialState(): STATE
 
     /**
      * Dispatches an action to the [ViewModel].

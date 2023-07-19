@@ -40,11 +40,17 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.kotlinCompilerExtension
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 }
 
 dependencies {
     implementation(project(":androidx-datastore"))
     implementation(platform(Deps.Compose.bom))
+    implementation(Deps.Androidx.datastore)
     implementation(Deps.Compose.runtime)
 }
 
