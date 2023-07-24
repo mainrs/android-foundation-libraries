@@ -26,8 +26,8 @@ abstract class MviViewModel<ACTION, STATE, EFFECT> : LoggingViewModel() {
     private val _effect: Channel<EFFECT> = Channel()
     val effect: Flow<EFFECT> = _effect.receiveAsFlow()
 
-    private val _state: MutableStateFlow<STATE> = MutableStateFlow(initialState)
-    val state: StateFlow<STATE> = _state.asStateFlow()
+    private val _state: MutableStateFlow<STATE> by lazy { MutableStateFlow(initialState) }
+    val state: StateFlow<STATE> by lazy { _state.asStateFlow() }
 
     protected abstract fun onAction(action: ACTION)
     protected abstract fun createInitialState(): STATE
