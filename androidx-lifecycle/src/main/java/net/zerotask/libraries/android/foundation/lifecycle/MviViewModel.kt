@@ -12,7 +12,7 @@ interface MviViewModel<A, E, S> {
     context(ViewModel)
     fun createInitialState(): S
     context(ViewModel)
-    fun getCoroutineScope(): CoroutineScope
+    fun setCoroutineScope(coroutineScope: CoroutineScope)
     context(ViewModel)
     fun onAction(action: A)
     context(ViewModel)

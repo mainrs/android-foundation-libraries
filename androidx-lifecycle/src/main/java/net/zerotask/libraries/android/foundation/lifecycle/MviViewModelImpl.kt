@@ -30,11 +30,13 @@ class MviViewModelImpl<A, E, S> : MviViewModel<A, E, S> {
     private val _state: MutableStateFlow<S> by lazy { MutableStateFlow(initialState) }
     override val state: StateFlow<S> by lazy { _state.asStateFlow() }
 
+    private lateinit var coroutineScope: CoroutineScope
+
     /**
      * Dispatches an action to the [ViewModel].
      */
     override fun dispatchAction(action: A) {
-        getCoroutineScope().launch { _action.emit(action) }
+        coroutineScope.launch { _action.emit(action) }
     }
 
     /**
@@ -42,7 +44,7 @@ class MviViewModelImpl<A, E, S> : MviViewModel<A, E, S> {
      */
     override fun dispatchEffect(builder: () -> E) {
         val effect = builder()
-        getCoroutineScope().launch { _effect.send(effect) }
+        coroutineScope.launch { _effect.send(effect) }
     }
 
     /**
@@ -55,7 +57,7 @@ class MviViewModelImpl<A, E, S> : MviViewModel<A, E, S> {
     }
 
     init {
-        getCoroutineScope().launch {
+        coroutineScope.launch {
             _action.collect {
                 onAction(it)
             }
@@ -66,8 +68,8 @@ class MviViewModelImpl<A, E, S> : MviViewModel<A, E, S> {
         TODO("Not yet implemented")
     }
 
-    override fun getCoroutineScope(): CoroutineScope {
-        TODO("Not yet implemented")
+    context(ViewModel) override fun setCoroutineScope(coroutineScope: CoroutineScope) {
+        this.coroutineScope = coroutineScope
     }
 
     override fun onAction(action: A) {
